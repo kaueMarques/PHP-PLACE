@@ -1,19 +1,20 @@
 FROM php:5.6-apache
 
+#2 Install unzip
 RUN apt-get update && apt-get install -y \
     unzip
 
-# Install git
+#3 Install git
 RUN apt-get update && apt-get install -y \
     git
 
-# Enable mod-rewrite
+#4 Enable mod-rewrite
 RUN a2enmod rewrite
 
-# Install pdo_mysql
+#5 Install pdo_mysql
 RUN docker-php-ext-install pdo_mysql
 
-# Install intl
+#6 Install intl
 RUN apt-get update && apt-get install -y \
     g++ \
     libicu-dev \
@@ -21,27 +22,27 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl
 
-# Install GD2
+#7 Install GD2
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
-# Install zip
+#8 Install zip
 RUN docker-php-ext-install zip
 
-# Install XDebug
+#9 Install XDebug
 RUN pecl install xdebug-2.5.0 \
     && docker-php-ext-enable xdebug
 
-# Install SOAP
+#10 Install SOAP
 RUN apt-get update && apt-get install -y \
     libxml2-dev \
     && docker-php-ext-install soap
 
 
-# Install composer and make the correct dirs writable
+#11 Install composer and make the correct dirs writable
 ENV PATH "/composer/vendor/bin:$PATH"
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /composer
