@@ -1,14 +1,14 @@
 version: '3.3'
 
 services:
-  db:
+  Mysql5.7_c:
     image: mysql:5.7
     volumes:
       - /var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
 
-  php:
+  PHP5.6_c:
     image: php:5.6-apache
     build: .
     ports:
